@@ -133,3 +133,21 @@
 
     return res.status(200).json({ admins });
   };
+
+
+  export const getAdminById = async(req, res, next) => {
+    const id = req.params.id;
+
+    let admin;
+    try{
+      admin = await Admin.findById(id).populate("addedMovies");
+    } catch(error){
+      return console.log(error);
+    }
+
+    if(!admin){
+      return console.log("cannot find Admin");
+    }
+
+    return res.status(200).json({admin});
+  }
